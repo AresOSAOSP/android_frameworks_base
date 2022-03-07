@@ -26,4 +26,7 @@
 
     <!-- Button to restart SystemUI, within the Restart Options dialog -->
     <string name="global_action_restart_systemui">SystemUI</string>
+
+    <!-- Name of the roaming status bar icon. -->
+    <string name="status_bar_roaming">Roaming indicator</string>
 </resources>
