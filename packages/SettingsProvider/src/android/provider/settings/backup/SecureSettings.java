@@ -286,5 +286,6 @@ public class SecureSettings {
         Settings.Secure.MANDATORY_BIOMETRICS,
         Settings.Secure.MANDATORY_BIOMETRICS_REQUIREMENTS_SATISFIED,
         Settings.Secure.VPN_ENFORCE_DNS,
+        Settings.Secure.MEDIA_CONTROLS_ALWAYS_SHOW_TIME,
     };
 }
