@@ -21,6 +21,7 @@ import com.android.systemui.qs.tiles.AmbientDisplayTile
 import com.android.systemui.qs.tiles.AODTile
 import com.android.systemui.qs.tiles.CaffeineTile
 import com.android.systemui.qs.tiles.CellularTile
+import com.android.systemui.qs.tiles.DnsTile
 import com.android.systemui.qs.tiles.PreferredNetworkTile
 import com.android.systemui.qs.tiles.SoundTile
 import com.android.systemui.qs.tiles.HeadsUpTile
@@ -62,6 +63,12 @@ interface LineageModule {
     @IntoMap
     @StringKey(CellularTile.TILE_SPEC)
     fun bindCellularTile(cellularTile: CellularTile): QSTileImpl<*>
+
+    /** Inject DnsTile into tileMap in QSModule */
+    @Binds
+    @IntoMap
+    @StringKey(DnsTile.TILE_SPEC)
+    fun bindDnsTile(dnsTile: DnsTile): QSTileImpl<*>
 
     /** Inject HeadsUpTile into tileMap in QSModule */
     @Binds
