@@ -1101,7 +1101,7 @@ constructor(
         }
     }
 
-    private fun updatePlayers(recreateMedia: Boolean) {
+    public fun updatePlayers(recreateMedia: Boolean) {
         if (mediaFlags.isSceneContainerEnabled()) {
             updateMediaPlayers(recreateMedia)
             return
