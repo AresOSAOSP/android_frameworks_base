@@ -282,6 +282,7 @@ public class SecureSettings {
         Settings.Secure.ON_DEVICE_INTELLIGENCE_IDLE_TIMEOUT_MS,
         Settings.Secure.VPN_ENFORCE_DNS,
         Settings.Secure.MEDIA_CONTROLS_ALWAYS_SHOW_TIME,
+        Settings.Secure.MEDIA_CONTROLS_TIME_AS_NEXT,
         Settings.Secure.MEDIA_CONTROLS_ACTIONS,
     };
 }
