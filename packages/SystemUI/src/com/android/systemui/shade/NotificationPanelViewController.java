@@ -2023,11 +2023,23 @@ public final class NotificationPanelViewController implements ShadeSurface, Dump
             mKeyguardUserSwitcherController.setAlpha(alpha);
         }
     }
+    
+    private void boostFrames() {
+        if (mView != null && mView.getViewRootImpl() != null) {
+            mView.getViewRootImpl().notifyRendererOfExpensiveFrame();
+        }
+    }
+    
+    private void boostFramesDuringRelayout() {
+        boostFrames();
+        this.mView.requestLayout();
+        boostFrames();
+    }
 
     @Override
     public void transitionToExpandedShade(long delay) {
         mNotificationStackScrollLayoutController.goToFullShade(delay);
-        mView.requestLayout();
+        boostFramesDuringRelayout();
         mAnimateNextPositionUpdate = true;
     }
 
@@ -2941,7 +2953,7 @@ public final class NotificationPanelViewController implements ShadeSurface, Dump
                         }
                     });
             // Make sure a layout really happens.
-            this.mView.requestLayout();
+            boostFramesDuringRelayout();
         }
 
         setListening(true);
@@ -4327,7 +4339,7 @@ public final class NotificationPanelViewController implements ShadeSurface, Dump
         //A layout will ensure that onComputeInternalInsets will be called and after that we can
         // resize the layout. Make sure that the window stays small for one frame until the
         // touchableRegion is set.
-        mView.requestLayout();
+        boostFramesDuringRelayout();
         mNotificationShadeWindowController.setForceWindowCollapsed(true);
         postToView(() -> {
             mNotificationShadeWindowController.setForceWindowCollapsed(false);
