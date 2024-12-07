@@ -450,5 +450,6 @@ public class SecureSettingsValidators {
         VALIDATORS.put(Secure.VPN_ENFORCE_DNS_STORE, new DiscreteValueValidator(new String[] {"-1", "0", "1", "2"}));
         VALIDATORS.put(Secure.MEDIA_CONTROLS_ALWAYS_SHOW_TIME, BOOLEAN_VALIDATOR);
         VALIDATORS.put(Secure.MEDIA_CONTROLS_TIME_AS_NEXT, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(Secure.HIDE_APPLIST, ANY_STRING_VALIDATOR);
     }
 }
