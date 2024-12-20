@@ -168,6 +168,7 @@ class FooterActionsViewModel(
                 globalActionsDialogLite,
                 activityStarter,
                 showPowerButton,
+                keyguardStateController,
             )
         }
     }
