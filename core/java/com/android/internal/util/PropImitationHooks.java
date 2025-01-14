@@ -50,7 +50,6 @@ public class PropImitationHooks {
     private static final String PACKAGE_ARCORE = "com.google.ar.core";
     private static final String PACKAGE_ASI = "com.google.android.as";
     private static final String PACKAGE_ASSISTANT = "com.google.android.apps.googleassistant";
-    private static final String PACKAGE_BARD = "com.google.android.apps.bard";
     private static final String PACKAGE_EMOJIWALLPAPER = "com.google.android.apps.emojiwallpaper";
 
     private static final String PACKAGE_FINSKY = "com.android.vending";
@@ -66,7 +65,6 @@ public class PropImitationHooks {
     private static final String PACKAGE_VELVET = "com.google.android.googlequicksearchbox";
     private static final String PACKAGE_WALLPAPER = "com.google.android.apps.wallpaper";
     private static final String PACKAGE_WALLPAPEREFFECTS = "com.google.android.wallpaper.effects";
-    private static final String PACKAGE_WEATHER = "com.google.android.apps.weather";
 
     private static final String PROCESS_GMS_GAPPS = PACKAGE_GMS + ".gapps";
     private static final String PROCESS_GMS_GSERVICE = PACKAGE_GMS + ".gservice";
@@ -82,15 +80,15 @@ public class PropImitationHooks {
     private static final ComponentName GMS_ADD_ACCOUNT_ACTIVITY = ComponentName.unflattenFromString(
             "com.google.android.gms/.auth.uiflows.minutemaid.MinuteMaidActivity");
 
-    private static final Map<String, String> sPixelNineXLProps = Map.of(
-            "PRODUCT", "komodo",
-            "DEVICE", "komodo",
-            "HARDWARE", "komodo",
+    private static final Map<String, String> sPixelNineProps = Map.of(
+            "PRODUCT", "caiman",
+            "DEVICE", "caiman",
+            "HARDWARE", "caiman",
             "MANUFACTURER", "Google",
             "BRAND", "google",
-            "MODEL", "Pixel 9 Pro XL",
-            "ID", "AP3A.241105.008",
-            "FINGERPRINT", "google/komodo/komodo:15/AP3A.241105.008/12485168:user/release-keys"
+            "MODEL", "Pixel 9 Pro",
+            "ID", "AP4A.241205.013.C1",
+            "FINGERPRINT", "google/caiman/caiman:15/AP4A.241205.013.C1/12657666:user/release-keys"
     );
 
     private static final Map<String, String> sPixelFiveProps = Map.of(
@@ -100,8 +98,8 @@ public class PropImitationHooks {
             "MANUFACTURER", "Google",
             "BRAND", "google",
             "MODEL", "Pixel 5a",
-            "ID", "AP2A.240805.005",
-            "FINGERPRINT", "google/barbet/barbet:14/AP2A.240805.005/12025142:user/release-keys"
+            "ID", "AP2A.240805.005.S4",
+            "FINGERPRINT", "google/barbet/barbet:14/AP2A.240805.005.S4/12281092:user/release-keys"
     );
 
     private static final Map<String, String> sPixelTabletProps = Map.of(
@@ -111,8 +109,8 @@ public class PropImitationHooks {
             "MANUFACTURER", "Google",
             "BRAND", "google",
             "MODEL", "Pixel Tablet",
-            "ID", "AP3A.241105.007",
-            "FINGERPRINT", "google/tangorpro/tangorpro:15/AP3A.241105.007/12470370:user/release-keys"
+            "ID", "AP4A.241205.013",
+            "FINGERPRINT", "google/tangorpro/tangorpro:15/AP4A.241205.013/12621605:user/release-keys"
     );
 
     private static final Map<String, String> sPixelXLProps = Map.of(
@@ -135,8 +133,6 @@ public class PropImitationHooks {
     );
 
     private static final Set<String> sPixelFeatures = Set.of(
-            "GOOGLE_BUILD",
-            "GOOGLE_EXPERIENCE",
             "PIXEL_2017_EXPERIENCE",
             "PIXEL_2017_PRELOAD",
             "PIXEL_2018_EXPERIENCE",
@@ -164,7 +160,7 @@ public class PropImitationHooks {
     private static volatile String sStockFp, sNetflixModel;
 
     private static volatile String sProcessName;
-    private static volatile boolean sIsGms, sIsFinsky, sIsPhotos, sIsTablet;
+    private static volatile boolean sIsGms, sIsFinsky, sIsPhotos;
 
     public static void setProps(Context context) {
         final String packageName = context.getPackageName();
@@ -184,7 +180,6 @@ public class PropImitationHooks {
         sCertifiedProps = res.getStringArray(R.array.config_certifiedBuildProperties);
         sStockFp = res.getString(R.string.config_stockFingerprint);
         sNetflixModel = res.getString(R.string.config_netflixSpoofModel);
-        sIsTablet = res.getBoolean(R.bool.config_spoofasTablet);
 
         sProcessName = processName;
         sIsGms = packageName.equals(PACKAGE_GMS) && processName.equals(PROCESS_GMS_UNSTABLE);
@@ -224,7 +219,6 @@ public class PropImitationHooks {
             case PACKAGE_AIWALLPAPERS:
             case PACKAGE_ASSISTANT:
             case PACKAGE_ASI:
-            case PACKAGE_BARD:
             case PACKAGE_EMOJIWALLPAPER:
             case PACKAGE_GMS:
             case PACKAGE_LIVEWALLPAPER:
@@ -235,13 +229,12 @@ public class PropImitationHooks {
             case PACKAGE_VELVET:
             case PACKAGE_WALLPAPER:
             case PACKAGE_WALLPAPEREFFECTS:
-            case PACKAGE_WEATHER:
-                if (sIsTablet) {
+                if (SystemProperties.get("ro.build.characteristics").equals("tablet")) {
                     dlog("Spoofing Pixel Tablet for: " + packageName + " process: " + processName);
                     setProps(sPixelTabletProps);
                 } else {
-                    dlog("Spoofing Pixel 9 Pro XL for: " + packageName + " process: " + processName);
-                    setProps(sPixelNineXLProps);
+                    dlog("Spoofing Pixel 9 Pro for: " + packageName + " process: " + processName);
+                    setProps(sPixelNineProps);
                 }
                 return;
             case PACKAGE_GPHOTOS:
